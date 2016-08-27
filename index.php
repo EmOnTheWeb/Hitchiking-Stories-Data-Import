@@ -61,13 +61,23 @@ if (mysqli_connect_errno()) {
 	}
 
 	$numContent = sizeof($contentArray);
-	echo $numContent; 
-		for($i=0; $i < sizeof($contentArray); $i++) {
-		 echo $contentArray[$i]; 
+	$index = 0; 
+		foreach($contentArray as $content) {
+			$index++; 
 			$query = "insert into wp_posts (post_content) values 
-					('".$contentArray[$i]."')"; 
+					('".$content."')"; 
 
-			$db->query($query); 
+			$success = $db->query($query); 
+
+			if($success) {
+
+				echo 'success'; 
+			} else {
+
+				echo 'number'.$index.'did not insert'; echo "</br>"; 
+				echo $content; 
+				echo "...</br>"; 
+			}
 
 		}
 	$db->close(); 
