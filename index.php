@@ -32,33 +32,46 @@ if (mysqli_connect_errno()) {
 
 	$result = $db->query($query); 
 
+	echo $result->num_rows; 
 
-
-	for($i=0; $i < 1; $i++) {            
-
+	for($i=0; $i < $result->num_rows; $i++) {            
+	
 		$row = $result->fetch_assoc(); 
 
-		// var_dump($row); 
+		$author = $row['informant']; 
+		$rowKey = $row['sid']; 
+
+		// echo gettype($rowKey); 
 
 		$success= mysqli_select_db($db, 'digihitch_wordpress'); 
 
-		$author = $row['informant']; 
+		
 		// echo $author; 
 		$query = "select ID from wp_users where display_name='".$author."'"; 
-		echo $query; 
+		// echo $query; 
 
-		echo "<br><br><br>"; 
+		// echo "<br><br><br>"; 
 		$wpID = $db->query($query); 
 
-		var_dump($wpID); 
+		// var_dump($wpID); 
 
-			for($i=0; $i< $wpID->num_rows; $i++) {
+		$wpIDNumber = 0; 
+		//get the number out of result and store it in the var 
+			for($z=0; $z< $wpID->num_rows; $z++) {
 
 				$wpIDRow = $wpID->fetch_assoc(); 
 
 				$wpIDNumber = $wpIDRow['ID']; 
-
+				// var_dump($wpIDNumber); 
 			}
+		//switch database back
+		mysqli_select_db($db, 'digihitch'); 
+
+		$query = "update can_stories set wp_authorID=".mysqli_real_escape_string($db,$wpIDNumber)." where sid=".mysqli_real_escape_string($db,$rowKey); 
+
+		// echo $query; 
+
+
 	}
 }
 
