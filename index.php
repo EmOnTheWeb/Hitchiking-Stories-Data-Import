@@ -13,7 +13,11 @@ $server = "localhost";
 
 	} else {
 
-		$query = "select author from bak_stories_organized"; 
+		$query = "select author from bak_stories_organized
+				  union all 
+				  select informant from eu_stories
+				  union all 
+				  select informant from can_stories"; 
 		$result = $db->query($query); 
 
 		$authorList = array(); 
