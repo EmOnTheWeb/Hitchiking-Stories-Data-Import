@@ -20,7 +20,7 @@ if (mysqli_connect_errno()) {
 
 		$row = $result->fetch_assoc(); 
 
-		var_dump($row); 
+		// var_dump($row); 
 
 	
 		$wholeContent = $row['archive'];
@@ -66,9 +66,13 @@ if (mysqli_connect_errno()) {
 
 
 
-		echo "<br><br>..........................................................................<br><br><br><br><br>";  
+		// echo "<br><br>..........................................................................<br><br><br><br><br>";  
 
-		echo $cleanContent; 
+
+		$query = "insert into bak_stories_organized(date,title,author,content)
+					VALUES ('".mysqli_real_escape_string($db, $date)."','".mysqli_real_escape_string($db, $title)."','".mysqli_real_escape_string($db, $author)."','".mysqli_real_escape_string($db, $cleanContent)."')"; 
+		
+		$db->query($query);						 
 		
 	}
 
