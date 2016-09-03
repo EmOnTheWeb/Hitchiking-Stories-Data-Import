@@ -13,28 +13,33 @@ if (mysqli_connect_errno()) {
 
 } else {
 
-	$query = "select * from eu_stories"; 
+	$query = "select archive from bak_stories"; 
 	$result = $db->query($query); 
 
-	$contentArray = array(); 
-	for($i=0; $i < $result->num_rows; $i++) {
+	for($i=0; $i < 1 ; $i++) {              //$result->num_rows
 
 		$row = $result->fetch_assoc(); 
 
-		//get relevant info. 
-		
-		$author = $row['aid']; 
-		$title = $row['title']; 
-		$date = $row['time']; 
-		$content = $row['hometext'].$row['bodytext']; 
+		var_dump($row); 
 
-		array_push($contentArray,$content); 
+	
+		$wholeContent = $row['archive'];
+		$findAuthor   = 'aid|';
+		$authorPos = strpos($wholeContent, $findAuthor);
 
-		//for wp 
-		$postType = 'post'; 
+		$contentStartOfAuthor = substr($wholeContent,$authorPos+4); 
+
+		$endofAuthor = strpos($contentStartOfAuthor,'|'); 
+
+		$author = substr($contentStartOfAuthor, 0, $endofAuthor); 
+
+
+
+		echo "<br><br>..........................................................................<br><br><br><br><br>"; 
+
+		echo $author; 
 		
 	}
-
 
 }
 
@@ -46,40 +51,40 @@ if (mysqli_connect_errno()) {
 
 	//open new connection 
 
-	$database = "digihitch_wordpress"; 
-	@ $db = new mysqli($server,$user_name,$password,$database); 
+	// $database = "digihitch_wordpress"; 
+	// @ $db = new mysqli($server,$user_name,$password,$database); 
 
-	if (mysqli_connect_errno()) {
+	// if (mysqli_connect_errno()) {
 
-	echo 'didnt connect'; 
-	exit; 
+	// echo 'didnt connect'; 
+	// exit; 
 
-	} else {
+	// } else {
 
-	echo 'yesi did connect'; 
+	// echo 'yesi did connect'; 
 
-	}
+	// }
 
-	$numContent = sizeof($contentArray);
-	$index = 0; 
-		foreach($contentArray as $content) {
-			$index++; 
-			$query = "insert into wp_posts (post_content) values 
-					('".$content."')"; 
+	// $numContent = sizeof($contentArray);
+	// $index = 0; 
+	// 	foreach($contentArray as $content) {
+	// 		$index++; 
+	// 		$query = "insert into wp_posts (post_content) values 
+	// 				('".$content."')"; 
 
-			$success = $db->query($query); 
+	// 		$success = $db->query($query); 
 
-			if($success) {
+	// 		if($success) {
 
-				echo 'success'; 
-			} else {
+	// 			echo 'success'; 
+	// 		} else {
 
-				echo 'number'.$index.'did not insert'; echo "</br>"; 
-				echo $content; 
-				echo "...</br>"; 
-			}
+	// 			echo 'number'.$index.'did not insert'; echo "</br>"; 
+	// 			echo $content; 
+	// 			echo "...</br>"; 
+	// 		}
 
-		}
-	$db->close(); 
+	// 	}
+	// $db->close(); 
 
 ?>
