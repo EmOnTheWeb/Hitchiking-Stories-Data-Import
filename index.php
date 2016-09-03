@@ -34,8 +34,13 @@ if (mysqli_connect_errno()) {
 
 	for($i=0; $i < $result->num_rows ; $i++) {            
 
-		
-		
+		$row = $result->fetch_assoc(); 
+
+		mysqli_select_db($db, 'digihitch_wordpress'); 
+
+		$query = "select ID from wp_users where display_name=".$row['informant']; 
+
+		$wpID = $db->query($query); 
 
 
 
@@ -44,8 +49,11 @@ if (mysqli_connect_errno()) {
 
 	}
 
-
 }
+
+$result->free(); 
+$db->close(); 
+
 
 
 ?>
