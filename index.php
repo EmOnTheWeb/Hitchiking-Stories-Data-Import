@@ -36,7 +36,6 @@ if (mysqli_connect_errno()) {
 
 
 		//parse out title 
-
 		$findTitle = 'title|'; 
 		$titlePos = strpos($wholeContent, $findTitle); 
 		$contentStartOfTitle = substr($wholeContent, $titlePos+6); 
@@ -44,11 +43,20 @@ if (mysqli_connect_errno()) {
 
 		$title = substr($contentStartOfTitle, 0, $endofTitle); 
 
+		//parse out date 
+
+		$findDate = 'time|'; 
+		$datePos = strpos($wholeContent, $findDate); 
+		$contentStartOfDate = substr($wholeContent, $datePos+5); 
+		$endofDate = strpos($contentStartOfDate, '|'); 
+
+		$date = substr($contentStartOfDate, 0, $endofDate); 
+
 
 
 		echo "<br><br>..........................................................................<br><br><br><br><br>"; 
 
-		echo $author; echo $title; 
+		echo $author; echo $title; echo $date; 
 		
 	}
 
