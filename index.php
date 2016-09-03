@@ -29,14 +29,14 @@ $server = "localhost";
 
 				//change database
 
-				// mysqli_select_db($db,"digihitch_wordpress");
+				mysqli_select_db($db,"digihitch_wordpress");
 
 				//insert into db 
 
-				// $query = "insert into wp_users(display_name) 
-				// 		  VALUES ('".mysqli_real_escape_string($db, $row['author'])."')"; 
+				$query = "insert into wp_users(display_name) 
+						  VALUES ('".mysqli_real_escape_string($db, $row['author'])."')"; 
 
-				// $db->query($query); 
+				$db->query($query); 
 
 				//add to author list
 
