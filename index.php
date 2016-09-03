@@ -20,7 +20,7 @@ $server = "localhost";
 		for($i=0; $i < $result->num_rows; $i++) {     
 
 			$row = $result->fetch_assoc(); 
-
+			// var_dump($authorList); echo "<br><br>"; 
 			if(!inAuthorList($row['author'], $authorList)) {
 
 				//change database
@@ -50,20 +50,25 @@ $db->close();
 
 function inAuthorList($author, $authorList) {
 
+	// echo $author.'...against:'; 
+	// var_dump($authorList); echo "<br>"; echo "<br>"; 
 
-	foreach( $authorList as $authorAlreadyStored) {
+	foreach($authorList as $value) {
+
+		// echo 'array value is'. $value; echo "<br><br>"; 
 
 		$author = strtolower(trim($author)); 
-		$authorAlreadyStored = strtolower(trim($authorAlreadyStored)); 
+		$value = strtolower(trim($value)); 
+		// $authorAlreadyStored = strtolower(trim($authorAlreadyStored)); 
 
-		echo $author; echo ':'; echo $authorAlreadyStored; echo "<br>"; 
-		if($author === $authorAlreadyStored) {
-			echo 'i return true'; echo "<br>"; 
+
+		if($author===$value) {
+
 			return true; 
 		}
-		echo 'i return false'; echo "<br>"; 
-		return false; 
+		
 	}
+	return false; 
 }
 
 ?>
