@@ -61,13 +61,14 @@ if (mysqli_connect_errno()) {
 
 		//clean up content 
 
-
+		$cleanContent = str_replace('|', '', $contentUpToEnd); 
+		$cleanContent = str_replace('bodytext','',$cleanContent); 
 
 
 
 		echo "<br><br>..........................................................................<br><br><br><br><br>";  
 
-		echo $contentUpToEnd.'stripped out content'; 
+		echo $cleanContent; 
 		
 	}
 
