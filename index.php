@@ -24,20 +24,31 @@ if (mysqli_connect_errno()) {
 
 	
 		$wholeContent = $row['archive'];
+
+		//parse out author
 		$findAuthor   = 'aid|';
+
 		$authorPos = strpos($wholeContent, $findAuthor);
-
 		$contentStartOfAuthor = substr($wholeContent,$authorPos+4); 
-
 		$endofAuthor = strpos($contentStartOfAuthor,'|'); 
 
 		$author = substr($contentStartOfAuthor, 0, $endofAuthor); 
 
 
+		//parse out title 
+
+		$findTitle = 'title|'; 
+		$titlePos = strpos($wholeContent, $findTitle); 
+		$contentStartOfTitle = substr($wholeContent, $titlePos+6); 
+		$endofTitle = strpos($contentStartOfTitle, '|'); 
+
+		$title = substr($contentStartOfTitle, 0, $endofTitle); 
+
+
 
 		echo "<br><br>..........................................................................<br><br><br><br><br>"; 
 
-		echo $author; 
+		echo $author; echo $title; 
 		
 	}
 
