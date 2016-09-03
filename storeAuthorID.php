@@ -34,8 +34,8 @@ if (mysqli_connect_errno()) {
 
 	for($i=0; $i < $result->num_rows ; $i++) {            
 
-		
-		
+
+
 
 
 
