@@ -32,23 +32,34 @@ if (mysqli_connect_errno()) {
 
 	$result = $db->query($query); 
 
-	for($i=0; $i < $result->num_rows ; $i++) {            
+
+
+	for($i=0; $i < 1; $i++) {            
 
 		$row = $result->fetch_assoc(); 
 
-		mysqli_select_db($db, 'digihitch_wordpress'); 
+		// var_dump($row); 
 
-		$query = "select ID from wp_users where display_name=".$row['informant']; 
+		$success= mysqli_select_db($db, 'digihitch_wordpress'); 
 
+		$author = $row['informant']; 
+		// echo $author; 
+		$query = "select ID from wp_users where display_name='".$author."'"; 
+		echo $query; 
+
+		echo "<br><br><br>"; 
 		$wpID = $db->query($query); 
 
+		var_dump($wpID); 
 
+			for($i=0; $i< $wpID->num_rows; $i++) {
 
+				$wpIDRow = $wpID->fetch_assoc(); 
 
+				$wpIDNumber = $wpIDRow['ID']; 
 
-
+			}
 	}
-
 }
 
 $result->free(); 
