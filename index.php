@@ -16,7 +16,7 @@ if (mysqli_connect_errno()) {
 	$query = "select archive from bak_stories"; 
 	$result = $db->query($query); 
 
-	for($i=0; $i < 3 ; $i++) {              //$result->num_rows
+	for($i=0; $i < $result->num_rows ; $i++) {              
 
 		$row = $result->fetch_assoc(); 
 
