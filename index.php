@@ -16,7 +16,7 @@ if (mysqli_connect_errno()) {
 	$query = "select archive from bak_stories"; 
 	$result = $db->query($query); 
 
-	for($i=0; $i < 1 ; $i++) {              //$result->num_rows
+	for($i=0; $i < 3 ; $i++) {              //$result->num_rows
 
 		$row = $result->fetch_assoc(); 
 
@@ -27,7 +27,6 @@ if (mysqli_connect_errno()) {
 
 		//parse out author
 		$findAuthor   = 'aid|';
-
 		$authorPos = strpos($wholeContent, $findAuthor);
 		$contentStartOfAuthor = substr($wholeContent,$authorPos+4); 
 		$endofAuthor = strpos($contentStartOfAuthor,'|'); 
@@ -44,7 +43,6 @@ if (mysqli_connect_errno()) {
 		$title = substr($contentStartOfTitle, 0, $endofTitle); 
 
 		//parse out date 
-
 		$findDate = 'time|'; 
 		$datePos = strpos($wholeContent, $findDate); 
 		$contentStartOfDate = substr($wholeContent, $datePos+5); 
@@ -52,11 +50,24 @@ if (mysqli_connect_errno()) {
 
 		$date = substr($contentStartOfDate, 0, $endofDate); 
 
+		//get content
+		$findTextStart = 'hometext|'; 
+		$textStartPos = strpos($wholeContent, $findTextStart); 
+		$contentStartOfText = substr($wholeContent, $textStartPos + 9); 
+
+		$findEndOfText = 'comments'; 
+		$positionEndOfText = strpos($contentStartOfText, $findEndOfText); 
+		$contentUpToEnd = substr($contentStartOfText, 0, $positionEndOfText); 
+
+		//clean up content 
 
 
-		echo "<br><br>..........................................................................<br><br><br><br><br>"; 
 
-		echo $author; echo $title; echo $date; 
+
+
+		echo "<br><br>..........................................................................<br><br><br><br><br>";  
+
+		echo $contentUpToEnd.'stripped out content'; 
 		
 	}
 
