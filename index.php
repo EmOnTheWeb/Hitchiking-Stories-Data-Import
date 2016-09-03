@@ -26,9 +26,9 @@ if (mysqli_connect_errno()) {
 		$wholeContent = $row['archive'];
 
 		//parse out author
-		$findAuthor   = 'aid|';
+		$findAuthor   = 'informant|';
 		$authorPos = strpos($wholeContent, $findAuthor);
-		$contentStartOfAuthor = substr($wholeContent,$authorPos+4); 
+		$contentStartOfAuthor = substr($wholeContent,$authorPos+10); 
 		$endofAuthor = strpos($contentStartOfAuthor,'|'); 
 
 		$author = substr($contentStartOfAuthor, 0, $endofAuthor); 
@@ -67,7 +67,6 @@ if (mysqli_connect_errno()) {
 
 
 		// echo "<br><br>..........................................................................<br><br><br><br><br>";  
-
 
 		$query = "insert into bak_stories_organized(date,title,author,content)
 					VALUES ('".mysqli_real_escape_string($db, $date)."','".mysqli_real_escape_string($db, $title)."','".mysqli_real_escape_string($db, $author)."','".mysqli_real_escape_string($db, $cleanContent)."')"; 
